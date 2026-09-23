@@ -1,16 +1,21 @@
 FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
-    git unzip libzip-dev libpng-dev libonig-dev \
+    git unzip curl libzip-dev libpng-dev libonig-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring zip gd
 
-WORKDIR /app
+# Node.js untuk build asset Vite
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
+WORKDIR /app
 COPY . .
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 RUN composer install --no-dev --optimize-autoloader
+
+# Build asset (menghasilkan public/build/manifest.json)
+RUN npm ci && npm run build
 
 RUN php artisan config:clear
 
