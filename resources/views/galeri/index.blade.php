@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-public-layout title="Galeri Kegiatan BPS Provinsi Maluku Utara">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Galeri Kegiatan
@@ -79,4 +79,4 @@
             thumbEl.classList.add('border-blue-900');
         }
     </script>
-</x-app-layout>
+</x-public-layout>

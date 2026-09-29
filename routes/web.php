@@ -1,44 +1,30 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PublikasiController;
-use App\Http\Controllers\GaleriController;
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', function () {
-    return redirect()->route('login');
-});
-
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublikasiController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+// ===== Area publik =====
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog.index');
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
+
+// ===== Area admin (perlu login) =====
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-Route::middleware('auth')->group(function () {
+
     Route::resource('publikasi', PublikasiController::class);
     Route::get('/publikasi-hint', [PublikasiController::class, 'hint'])->name('publikasi.hint');
-});
-Route::middleware('auth')->group(function () {
-    Route::resource('publikasi', PublikasiController::class);
-    Route::get('/publikasi-hint', [PublikasiController::class, 'hint'])->name('publikasi.hint');
-    Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
