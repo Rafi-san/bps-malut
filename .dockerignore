@@ -1,5 +1,3 @@
 node_modules
 vendor
 .git
-storage/logs
-storage/framework/cache

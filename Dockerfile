@@ -23,4 +23,4 @@ RUN printf "upload_max_filesize=12M\npost_max_size=14M\n" > /usr/local/etc/php/c
 
 EXPOSE 8080
 
-CMD php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan migrate --force && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
