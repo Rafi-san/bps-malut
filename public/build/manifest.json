@@ -1,0 +1,19 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-c7FagzEy.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-D99hXOC0.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/publikasi-search.js": {
+    "file": "assets/publikasi-search-D5qOMqhS.js",
+    "name": "publikasi-search",
+    "src": "resources/js/publikasi-search.js",
+    "isEntry": true
+  }
+}
