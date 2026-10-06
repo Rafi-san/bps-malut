@@ -27,4 +27,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/publikasi-hint', [PublikasiController::class, 'hint'])->name('publikasi.hint');
 });
 
+Route::get('/storage/{path}', function (string $path) {
+    $base = realpath(storage_path('app/public'));
+    $file = realpath(storage_path('app/public/' . $path));
+
+    abort_unless($file && $base && str_starts_with($file, $base) && is_file($file), 404);
+
+    return response()->file($file);
+})->where('path', '.*');
+
 require __DIR__ . '/auth.php';
